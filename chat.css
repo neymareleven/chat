@@ -1,0 +1,20 @@
+h3
+{
+	background-color: black;
+	color: white;
+	font-size: 0.9em;
+	margin-bottom: 0px;
+	text-align: center;
+}
+.news p
+{
+	background-color: #cccccc;
+	margin-top: 0px;
+}
+.news
+{
+	width: 40%;
+	margin: auto;
+}
+
+	
