@@ -1,5 +1,41 @@
 <?php
 	session_start();
+
+	if (isset($_POST['formconnexion'])) 
+	{
+
+		$pdo_options[PDO::ATTR_ERRMODE] = PDO::ERRMODE_EXCEPTION;
+
+		try 
+		{
+			$bdd=new PDO('mysql:host=Localhost;dbname=Sites;charset=utf8','root','',$pdo_options);
+		} 
+		catch (Exception $e) 
+		{
+			die ('Erreur: '.$e->getMessage());
+		}
+
+		//vérification des identifiants
+		$pass_hache=sha1('gz'.$_POST['pass']);
+		$req=$bdd->prepare('SELECT * FROM membres WHERE pseudo=:pseudo AND pass=:pass');
+		$req->execute( array('pseudo' => $_POST['pseudo'] ,'pass' => $pass_hache ));
+		$resultat=$req->fetch();
+	
+
+		if (!$resultat) 
+		{
+			echo "<strong><em>mauvais pseudonyme ou mot de passe</em></strong>";
+		}
+		else
+		{
+			$_SESSION['id'] = $resultat ['id'];
+			$_SESSION['pseudo'] = $resultat ['pseudo'];
+			header("Location: profil.php?id=".$_SESSION['id']);
+		}
+
+			$req->closeCursor();
+	}
+	
 ?>
 
 <!DOCTYPE html>
@@ -30,43 +66,7 @@
 			</table>
 			</p>
 		</form>
-		<?php
-	if (isset($_POST['formconnexion'])) 
-	{
-
-		$pdo_options[PDO::ATTR_ERRMODE] = PDO::ERRMODE_EXCEPTION;
-
-		try 
-		{
-			$bdd=new PDO('mysql:host=Localhost;dbname=Sites','root','',$pdo_options);
-		} 
-		catch (Exception $e) 
-		{
-			die ('Erreur: '.$e->getMessage());
-		}
-
-		//vérification des identifiants
-		$pass_hache=sha1('gz'.$_POST['pass']);
-		$req=$bdd->prepare('SELECT * FROM membres WHERE pseudo=:pseudo AND pass=:pass');
-		$req->execute( array('pseudo' => $_POST['pseudo'] ,'pass' => $pass_hache ));
-		$resultat=$req->fetch();
-	
-
-		if (!$resultat) 
-		{
-			echo "<strong><em>mauvais pseudonyme ou mot de passe</em></strong>";
-		}
-		else
-		{
-			$_SESSION['id'] = $resultat ['id'];
-			$_SESSION['pseudo'] = $resultat ['pseudo'];
-			header("Location: profil.php?id=".$_SESSION['id']);
-		}
-
-			$req->closeCursor();
-	}
-		?>
-		<p>Vous n'avez pas de compte?<a href="Inscrire.php"> cliquez ici pour vous inscrire</a></p>
+			<p>Vous n'avez pas de compte?<a href="Inscrire.php"> cliquez ici pour vous inscrire</a></p>
 	</div>
 	
 	</body>

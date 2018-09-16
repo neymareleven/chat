@@ -2,7 +2,7 @@
 	session_start(); 
 	try 
 	{
-		$bdd = new PDO ('mysql: host=localhost;dbname=Sites','root','');
+		$bdd = new PDO ('mysql: host=localhost;dbname=Sites;charset=utf8','root','',array(PDO::ATTR_ERRMODE=>PDO::ERRMODE_EXCEPTION));
 		
 	} 
 	catch (Exception $e) 
