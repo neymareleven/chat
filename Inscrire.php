@@ -22,17 +22,17 @@
 
 					if($_POST['pass'] != $_POST['retapez_pass'])
 					{
-						echo "<strong><em>Vos mot de passe ne sont pas identique</em></strong>";
+						$msg= "<strong><em>Vos mot de passe ne sont pas identique</em></strong>";
 					}
 					
 					elseif(!preg_match("#^[a-z0-9._-]+@[a-z0-9._-]{2,}\.[a-z]{2,4}$#", $_POST['email']))
 					{
-						echo "l'adresse<strong><em> ".$_POST['email']." </em></strong>n'est pas correcte";
+						$msg= "l'adresse<strong><em> ".$_POST['email']." </em></strong>n'est pas correcte";
 					}
 
 					elseif ($resultat && sizeof($resultat) > 0) 
 					{
-						echo "Le pseudonyme<strong><em> ".$_POST['pseudo']." </em></strong>existe déjà prenez en un autre";
+						$msg= "Le pseudonyme<strong><em> ".$_POST['pseudo']." </em></strong>existe déjà prenez en un autre";
 					} 
 					else 
 					{
@@ -50,7 +50,7 @@
 				}
 				else
 				{
-					echo "<strong><em>Veuillez remplir tous les champs du forrmulaire</em></strong>";
+					$msg= "<strong><em>Veuillez remplir tous les champs du forrmulaire</em></strong>";
 
 				}
 			}
@@ -93,6 +93,7 @@
 				</p>
 			</form>
 				<p><a href=connect.php>retouner à la page de connection</a></p>
+				<p><?php if(isset($msg)){echo $msg;}?></p>
 		</div>
 		</body>
 	</html>

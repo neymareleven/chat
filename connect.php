@@ -24,7 +24,7 @@
 
 		if (!$resultat) 
 		{
-			echo "<strong><em>mauvais pseudonyme ou mot de passe</em></strong>";
+			$message="<strong><em>mauvais pseudonyme ou mot de passe</em></strong>";
 		}
 		else
 		{
@@ -67,6 +67,7 @@
 			</p>
 		</form>
 			<p>Vous n'avez pas de compte?<a href="Inscrire.php"> cliquez ici pour vous inscrire</a></p>
+			<p><?php if(isset($message)){echo $message;}?></p>
 	</div>
 	
 	</body>

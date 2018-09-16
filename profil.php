@@ -11,17 +11,11 @@
 		die('Erreur: '.$e->getMessage());
 	}
 
-	if (empty($_POST['message'])) 
-	{
-
-	}
-	else
+	if (!empty($_POST['message'])) 
 	{
 		$req=$bdd->prepare('INSERT INTO Chat (pseudo,message,date_envoie_msg ) VALUES (:pseudo,:message,NOW())');
 		$req->execute(array('pseudo' => $_SESSION['pseudo'],'message' => $_POST['message'] ));
-
 	}
-
 
 	if (isset($_GET['id']) AND $_GET['id'] > 0) 
 	{
